@@ -48,7 +48,7 @@ body{
 #alignment{
     position:absolute;
     top: 100px;
-    left: 367px;
+    left: 363px;
 	font-size: 0.85em;
 }
 
@@ -89,7 +89,7 @@ body{
 #playerName{
     position:absolute;
     top: 100px;
-    left: 468px;
+    left: 485px;
 	font-size: 0.85em;
 }
 
@@ -142,14 +142,14 @@ body{
 
 #weaponsList{
     position:absolute;
-    top: 1010px;
+    top: 1015px;
     left: 46px;
 	font-size: 0.65em;
 }
 
 #weaponsList2{
     position:absolute;
-    top: 1010px;
+    top: 1015px;
     left: 285px;
 	font-size: 0.65em;
 }
@@ -440,32 +440,25 @@ body{
     font-size: 0.85em;
 }
 
-/*
-#deedDie{
-    position:absolute;
-    top: 370px;
-    left: 270px;
-    font-size: 0.9em;
-}
-*/
+
 #initiative{
     position:absolute;
     top: 227px;
-    left: 380px;
+    left: 385px;
     font-size: 0.9em;
 }
 
-#threatRange{
+#luckDie{
     position:absolute;
     top: 227px;
-    left: 580px;
+    left: 640px;
     font-size: 0.9em;
 }
 
 #attackBonus{
     position:absolute;
     top: 227px;
-    left: 440px;
+    left: 485px;
     font-size: 0.9em;
 }
 
@@ -487,8 +480,8 @@ body{
 
 #languages{
     position:absolute;
-    top: 730px;
-    left:  390px;
+    top: 1052px;
+    left:  675px;
     font-size: 0.8em;
     width: 240px;
 }
@@ -537,91 +530,92 @@ body{
 
 #backstab{
     position:absolute;
-    top: 686px;
-    left: 505px;
+    top: 671px;
+    left: 565px;
     font-size: 0.8em;
 }
 
 #sneakSilently{
     position:absolute;
-    top: 716px;
-    left: 505px;
+    top: 698px;
+    left: 565px;
     font-size: 0.8em;
 }
 
 #hideInShadows{
     position:absolute;
-    top: 746px;
-    left: 505px;
+    top: 722px;
+    left: 565px;
     font-size: 0.8em;
 }
 
 #pickPocket{
     position:absolute;
-    top: 776px;
-    left: 505px;
+    top: 750px;
+    left: 565px;
     font-size: 0.8em;
 }
 
+
 #climb{
     position:absolute;
-    top: 806px;
-    left: 505px;
+    top: 776px;
+    left: 565px;
     font-size: 0.8em;
 }
 
 #pickLock{
     position:absolute;
-    top: 836px;
-    left: 505px;
+    top: 802px;
+    left: 565px;
     font-size: 0.8em;
 }
 
 #findTrap{
     position:absolute;
-    top: 866px;
-    left: 505px;
+    top: 833px;
+    left: 565px;
     font-size: 0.8em;
 }
 
 #disableTrap{
     position:absolute;
-    top: 896px;
-    left: 505px;
+    top: 861px;
+    left: 565px;
     font-size: 0.8em;
 }
 
 #forgeDoc{
     position:absolute;
-    top: 926px;
-    left: 505px;
+    top: 888px;
+    left: 565px;
     font-size: 0.8em;
 }
 
 #disguiseSelf{
     position:absolute;
-    top: 956px;
-    left: 505px;
+    top: 913px;
+    left: 565px;
     font-size: 0.8em;
 }
 
 #readLanguages{
     position:absolute;
-    top: 986px;
-    left: 505px;
+    top: 940px;
+    left: 565px;
     font-size: 0.8em;
 }
 
 #handlePoison{
     position:absolute;
-    top: 1016px;
-    left: 505px;
+    top: 965px;
+    left: 565px;
     font-size: 0.8em;
 }
 
 #castSpellScroll{
     position:absolute;
-    top: 1055px;
-    left: 505px;
+    top: 990px;
+    left: 565px;
     font-size: 0.8em;
 }

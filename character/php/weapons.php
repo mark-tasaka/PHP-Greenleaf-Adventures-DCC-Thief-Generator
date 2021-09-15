@@ -1,5 +1,7 @@
 <?php
 
+/*Thief*/
+
 
     function getWeapon($input)
     {
@@ -34,32 +36,19 @@
         
     }
 
+    
 
-
-function getRandomWeapons($luckyWeaponNumber)
+function getRandomWeapons()
 {
-    //cast to int
-    //unneccesary with php, but good practice
-    $luckyWeapon = (int)$luckyWeaponNumber;
-
-    $weaponsArray = array();
-
-    for($i = 0; $i <= 22; ++$i)
-    {
-        if($i != $luckyWeapon)
-        {
-            array_push($weaponsArray, $i);
-        }
-    }
+   
+    $weaponsArray = array(1, 2, 4, 5, 6, 8, 13, 17, 18, 20);
 
     //shuffle $weaponsArray
     shuffle($weaponsArray); 
 
-    $numberOfWeapons = rand (2, 8);
+    $numberOfWeapons = rand (3, 6);
 
     $weaponsHas = array();
-
-    array_push($weaponsHas, $luckyWeapon);
 
     for($j = 0; $j < $numberOfWeapons; ++$j)
     {

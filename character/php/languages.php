@@ -7,6 +7,7 @@ function getLanguages($intMod, $luckMod, $luckySign, $species, $alignment, $inte
         
         $languages = array();
         array_push($languages, 'Common');
+        array_push($languages, 'Thieves\' Cant');
 
         if($species === "Dwarf" && $intelligence > 7)
         {
@@ -33,7 +34,7 @@ function getLanguages($intMod, $luckMod, $luckySign, $species, $alignment, $inte
         }
         else
         {
-            $languagesAvailable = array( "Dwarf", "Elf", "Halfling", "Harpy", "Bugbear", "Goblin", "Gnoll", "Hobgolin", "Kobold", "Lizardman", "Minotaur", "Serpent-man", "Ogre", "Orc", "Troglodyte", "Giant");
+            $languagesAvailable = array("Dwarf", "Elf", "Halfling", "Gnome", "Bugbear", "Goblin", "Gnoll", "Hobgoblin", "Kobold", "Lizardman", "Demonic", "Serpent-man", "Doppelganger", "Dragon", "Troglodyte", "Giant", "Harpy", "Pixie", "Undercommon");
 
         }
 
@@ -47,6 +48,11 @@ function getLanguages($intMod, $luckMod, $luckySign, $species, $alignment, $inte
         if($intMod > 0)
         {
                 $bonusLanguages += $intMod;
+        }
+
+        if($luckySign == "28" && $luckMod > 0)
+        {
+            $bonusLanguages += $luckMod;
         }
 
         for($i = 0; $i < $bonusLanguages; $i++)

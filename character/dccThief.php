@@ -38,6 +38,7 @@
     include 'php/nameSelect.php';
     include 'php/gender.php';
     include 'php/languages.php';
+    include 'php/thiefAbilities.php';
     
 
         if(isset($_POST["theCharacterName"]))
@@ -202,20 +203,22 @@
 
        $speed = 30 - $armourSpeedPen;
 
-       $baseArmourClass = 10 + $agilityMod;
-
-       $armourClass = $baseArmourClass + $totalAcDefense;
 
        $criticalDie = criticalDie($level);
 
-       $threat = threatRange($level);
+       $luckDie = luckDie($level);
 
        $actionDice = actionDice($level);
 
-       $attackBonus = deedDie($level);
+       $attackBonus = attackBonus($level);
 
        $luckySign = array();
        $luckySign = getBirthAugur();
+
+       
+       $baseArmourClass = getAC($agilityMod, $luckMod, $luckySign[0]);
+
+       $armourClass = $baseArmourClass + $totalAcDefense;
 
        $ref = savingThrowReflex($level);
        $ref += $agilityMod;
@@ -238,7 +241,6 @@
        $title = title($level, $alignment);
 
        $initiative = getInit($agilityMod, $luckMod, $luckySign[0]);
-       $initiative += $level; 
 
 
        //Hit Points
@@ -255,8 +257,8 @@
 
        $meleeHitLuckyBonus = meleeAttackLuckSign($luckMod, $luckySign[0]);
 
-       //$meleeToHit = $attackBonus + $meleeHitLuckyBonus + $strengthMod;
-       $meleeToHit =$meleeHitLuckyBonus + $strengthMod;
+        $meleeToHit = $attackBonus + $meleeHitLuckyBonus + $strengthMod;
+       //$meleeToHit =$meleeHitLuckyBonus + $strengthMod;
 
        $meleeDamageLuckyBonus = meleeDamageLuckSign($luckMod, $luckySign[0]);
 
@@ -265,8 +267,8 @@
        
         $missileHitLuckyBonus = missileAttackLuckSign($luckMod, $luckySign[0]);
 
-        //$missileToHit = $attackBonus + $missileHitLuckyBonus + $agilityMod;
-        $missileToHit = $missileHitLuckyBonus + $agilityMod;
+        $missileToHit = $attackBonus + $missileHitLuckyBonus + $agilityMod;
+       // $missileToHit = $missileHitLuckyBonus + $agilityMod;
 
         $missileDamageLuckyBonus = missileDamageLuckSign($luckMod, $luckySign[0]);
 
@@ -294,14 +296,57 @@
 
        $tradeGoodsAddition = tradeGoodsAddition($profession, $trainedWeapon);
 
-       
-       if(isset($_POST["theLuckyWeapon"]))
-       {
-           $luckyWeaponNumberString = $_POST["theLuckyWeapon"];
-       } 
+ 
 
-       $luckyWeaponNumber = (int)$luckyWeaponNumberString;
-       $luckyWeapon = getWeapon($luckyWeaponNumber)[0];
+       $backstabArray = getBackstabArray ($alignment);
+       $backstab = $backstabArray[$level];
+
+       $sneakSilentlyArray = getSneakSilentlyArray ($alignment);
+       $sneakSilently = $sneakSilentlyArray[$level];
+       $sneakSilently += $agilityMod;
+
+       $hideInShadowArray = getHideInShadowsArray ($alignment);
+       $hideInShadows = $hideInShadowArray[$level];
+       $hideInShadows += $agilityMod;
+
+       $pickPocketArray = getHideInShadowsArray ($alignment);
+       $pickPocket = $pickPocketArray[$level];
+       $pickPocket += $agilityMod;
+
+       $climbArray = getClimbArray ($alignment);
+       $climb = $climbArray[$level];
+       $climb += $agilityMod;
+
+       $pickLockArray = getPickLockArray ($alignment);
+       $pickLock = $pickLockArray[$level];
+       $pickLock += $agilityMod;
+
+       $findTrapArray = getFindTrapArray ($alignment);
+       $findTrap = $findTrapArray[$level];
+       $findTrap += $intelligenceMod;
+
+       $disableTrapArray = getDisableTrapArray ($alignment);
+       $disableTrap = $disableTrapArray[$level];
+       $disableTrap += $agilityMod;
+
+       $forgeDocArray = getForgeDocArray ($alignment);
+       $forgeDoc = $forgeDocArray[$level];
+       $forgeDoc += $agilityMod;
+
+       $disguiseSelfArray = getDisguiseSelfArray ($alignment);
+       $disguiseSelf = $disguiseSelfArray[$level];
+       $disguiseSelf += $personalityMod;
+
+       $readLanguagesArray = getReadLanguagesArray ($alignment);
+       $readLanguages = $readLanguagesArray[$level];
+       $readLanguages += $intelligenceMod;
+
+       $handlePoisonArray = getHandlePoisonArray ($alignment);
+       $handlePoison = $handlePoisonArray[$level];
+
+       $castSpellScrollArray = getCastSpellScrollArray ($alignment);
+       $castSpellScroll = $castSpellScrollArray[$level];
+       $modToCheckScroll = thiefSpellScrollMod ($intelligenceMod);
 
 
 
@@ -309,10 +354,11 @@
         $weaponNames = array();
         $weaponDamage = array();
     
+    
     //For Random Select weapon
     if(isset($_POST['thecheckBoxRandomWeaponsV3']) && $_POST['thecheckBoxRandomWeaponsV3'] == 1) 
     {
-        $weaponArray = getRandomWeapons($luckyWeaponNumber);
+        $weaponArray = getRandomWeapons();
 
     }
     else
@@ -326,7 +372,7 @@
         }
     }
 
-
+    
     
     
     foreach($weaponArray as $select)
@@ -628,7 +674,7 @@
         
         <span id="attackBonus">
         <?php
-               // $attackBonus = getModSign($attackBonus);
+                $attackBonus = getModSign($attackBonus);
                 echo $attackBonus;
            ?>
            </span>
@@ -697,9 +743,9 @@
             ?>
         </span>
         
-        <span id="threatRange">
+        <span id="luckDie">
             <?php
-                echo $threat;
+                echo $luckDie;
             ?>
         </span>
 
@@ -760,12 +806,6 @@
             ?>
             </span>
 
-            <span id="luckyWeapon">
-            <?php
-                echo $luckyWeapon;
-            ?>
-        </span>
-        
        
        <span id="weaponsList">
            <?php
@@ -824,6 +864,88 @@
            echo $nameGenMessage . '<br/>' . $generationMessage;
            ?>
        </span>
+
+       
+
+       <span id="backstab">
+            <?php
+            $backstab = getModSign($backstab);
+           echo $backstab;
+           ?></span>
+
+
+       <span id="sneakSilently">
+            <?php
+            $sneakSilently = getModSign($sneakSilently);
+           echo $sneakSilently;
+           ?></span>
+
+       <span id="hideInShadows">
+            <?php
+            $hideInShadows = getModSign($hideInShadows);
+           echo $hideInShadows;
+           ?></span>
+
+       <span id="pickPocket">
+            <?php
+            $pickPocket = getModSign($pickPocket);
+           echo $pickPocket;
+           ?></span>
+
+       <span id="climb">
+            <?php
+            $climb = getModSign($climb);
+           echo $climb;
+           ?></span>
+
+       <span id="pickLock">
+            <?php
+            $pickLock = getModSign($pickLock);
+           echo $pickLock;
+           ?></span>
+
+       <span id="findTrap">
+            <?php
+            $findTrap = getModSign($findTrap);
+           echo $findTrap;
+           ?></span>
+
+       <span id="disableTrap">
+            <?php
+            $disableTrap = getModSign($disableTrap);
+           echo $disableTrap;
+           ?></span>
+
+       <span id="forgeDoc">
+            <?php
+            $forgeDoc = getModSign($forgeDoc);
+           echo $forgeDoc;
+           ?></span>
+
+       <span id="disguiseSelf">
+            <?php
+            $disguiseSelf = getModSign($disguiseSelf);
+           echo $disguiseSelf;
+           ?></span>
+
+       <span id="readLanguages">
+            <?php
+            $readLanguages = getModSign($readLanguages);
+           echo $readLanguages;
+           ?></span>
+
+       <span id="handlePoison">
+            <?php
+            $handlePoison = getModSign($handlePoison);
+           echo $handlePoison;
+           ?></span>
+
+       <span id="castSpellScroll">
+            <?php
+           echo $castSpellScroll . $modToCheckScroll;
+           ?></span>
+
+       
 
 
        
